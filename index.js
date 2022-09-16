@@ -4,10 +4,9 @@ import jwt from "jsonwebtoken";
 const app = express();
 
 app.post("/api/login", (req, res) => {
-  // Mock user
   const user = {
     id: 1,
-    username: "brad",
+    username: "Brad Peat",
     email: "brad@gmail.com",
   };
 
@@ -18,7 +17,7 @@ app.post("/api/login", (req, res) => {
   });
 });
 
-app.post("/api/data", verifyToken, (req, res) => {
+app.post("/api/data", verifyAccess, (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.sendStatus(403);
@@ -31,21 +30,15 @@ app.post("/api/data", verifyToken, (req, res) => {
   });
 });
 
-function verifyToken(req, res, next) {
-  // Get auth header value
+function verifyAccess(req, res, next) {
   const bearerHeader = req.headers["authorization"];
-  // Check if bearer is undefined
+  
   if (typeof bearerHeader !== "undefined") {
-    // Split at the space
     const bearer = bearerHeader.split(" ");
-    // Get token from array
     const bearerToken = bearer[1];
-    // Set the token
     req.token = bearerToken;
-    // Next middleware
     next();
   } else {
-    // Forbidden
     res.sendStatus(403);
   }
 }
