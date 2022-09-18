@@ -2,6 +2,10 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
 import bodyParser from "body-parser";
+import generateAccessToken from "./utils/generateAccessToken";
+import authenticateUser from "./utils/authenticateUser";
+import clusterRun from "./cluster";
+
 dotenv.config();
 
 const app = express();
@@ -12,8 +16,7 @@ const store = {
   refreshTokens: [],
 };
 
-app.post("/api/login", (req, res) => {
-  console.log(req.body);
+function apiLogin(req, res) {
   const username = req.body.username;
   const user = { user: username };
 
@@ -22,7 +25,9 @@ app.post("/api/login", (req, res) => {
   store.refreshTokens.push(refreshToken);
 
   res.json({ token, refreshToken });
-});
+}
+
+app.post("/api/login", apiLogin);
 
 app.post("/api/token", (req, res) => {
   const refreshToken = req.body.refreshToken;
@@ -43,23 +48,5 @@ app.get("/api/user", authenticateUser, (req, res) => {
   });
 });
 
-function authenticateUser(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-
-  if (token === null) res.sendStatus(401);
-
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
-  });
-}
-
-function generateAccessToken(user) {
-  return jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "15s",
-  });
-}
-
-app.listen(5000, () => console.log("Server started. http://localhost:5000"));
+// app.listen(5000, () => console.log("Server started. http://localhost:5000"));
+clusterRun(app);
