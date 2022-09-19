@@ -27,9 +27,7 @@ function apiLogin(req, res) {
   res.json({ token, refreshToken });
 }
 
-app.post("/api/login", apiLogin);
-
-app.post("/api/token", (req, res) => {
+function apiToken(req, res) {
   const refreshToken = req.body.refreshToken;
   if (!refreshToken) return res.sendStatus(401);
   if (!store.refreshTokens.includes(refreshToken)) return res.sendStatus(403);
@@ -40,13 +38,17 @@ app.post("/api/token", (req, res) => {
     const token = generateAccessToken(data.user);
     res.json({ token });
   });
-});
+}
 
-app.get("/api/user", authenticateUser, (req, res) => {
+function apiUser(req, res) {
   res.json({
     user: req.user,
   });
-});
+}
+
+app.post("/api/login", apiLogin);
+app.post("/api/token", apiToken);
+app.get("/api/user", authenticateUser, apiUser);
 
 // app.listen(5000, () => console.log("Server started. http://localhost:5000"));
 clusterRun(app);
