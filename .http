@@ -8,13 +8,13 @@ Content-Type: application/json
 ###
 POST http://localhost:5000/api/token HTTP/1.1
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXIiOiJKaW0ifSwiaWF0IjoxNjYzNTE5OTY0LCJleHAiOjE2NjM1MjAwODR9.9zXzwUrkGpRzSvHWQ6fgQ0JrZjtpmY1UH2YwUuQOke0
+authorization: Bearer <token>
 
 {
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSmltIiwiaWF0IjoxNjYzNTE5OTIzfQ.gQhzhcEQ4aB-_r9xtZB3_Xjq-mOtnVfBNgbYIcCNay4"
+    "refreshToken": "<refresh_token>"
 }
 
 ###
 GET http://localhost:5000/api/user HTTP/1.1
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXIiOiJKaW0ifSwiaWF0IjoxNjYzNTE5OTY0LCJleHAiOjE2NjM1MjAwODR9.9zXzwUrkGpRzSvHWQ6fgQ0JrZjtpmY1UH2YwUuQOke0
+authorization: Bearer <token>
