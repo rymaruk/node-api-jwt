@@ -2,19 +2,26 @@ POST http://localhost:5000/api/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "Jim"
-}
-
-###
-POST http://localhost:5000/api/token HTTP/1.1
-content-type: application/json
-authorization: Bearer <token>
-
-{
-    "refreshToken": "<refresh_token>"
+    "username": "Andrew",
+    "_id": "001"
 }
 
 ###
 GET http://localhost:5000/api/user HTTP/1.1
+Content-Type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFuZHJldyIsIl9pZCI6IjAwMSIsImlhdCI6MTY2Mzg2MzU0NywiZXhlYyI6MTY2Mzg2MzU4Njc4OCwiZXhwIjoxNjYzODYzNzI3fQ.TUkoFn3c4zaz1j-3kRei_fosYKCe6pp9S0T3F6gn49M
+
+
+###
+POST http://localhost:5000/api/token HTTP/1.1
 content-type: application/json
-authorization: Bearer <token>
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFuZHJldyIsIl9pZCI6IjAwMSIsImV4ZWMiOjE2NjM4NjM1NDc3MjgsImlhdCI6MTY2Mzg2MzU0NywiZXhwIjoxNjYzODYzNzI3fQ.JxSCSTVbFa5ecrhDbImkYH6v1nACvfL3GGH7dQVafmY
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFuZHJldyIsIl9pZCI6IjAwMSIsImlhdCI6MTY2Mzg2MzU0N30.DWMZf_bKzguLTh6hxqH997gMJhKUjmGEVhca8N9r39s"
+}
+
+###
+POST http://localhost:5000/api/logout HTTP/1.1
+content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFuZHJldyIsIl9pZCI6IjAwMSIsImV4ZWMiOjE2NjQwOTEwMTM4MjgsImlhdCI6MTY2NDA5MTAxMywiZXhwIjoxNjY0MDkxMTkzfQ.mBzgnoB4PQqPXwMEZ9xXtZ7jHWy3Dlpw-TmRsUN_NiM

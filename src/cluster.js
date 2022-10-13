@@ -14,7 +14,7 @@ function msgHandler(value) {
 // Size of CPUs
 const numCPUs = cpus().length;
 
-export default function clusterRun(app) {
+export default async function clusterRun(app) {
   if (cluster.isPrimary) {
     for (let i = 0; i < numCPUs; i++) {
       // Spawn a new worker process
@@ -27,6 +27,7 @@ export default function clusterRun(app) {
 
   } else {
     app.listen(5000, () => {
+
       // Notify primary about the request
       setTimeout(() => {
         if (typeof process.send === "function") {
